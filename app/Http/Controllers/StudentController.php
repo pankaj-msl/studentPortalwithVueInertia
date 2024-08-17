@@ -17,9 +17,18 @@ class StudentController extends Controller
     public function index()
     {
         $students = StudentResource::collection(Student::paginate(10));
+        //Resource classes are used to transform data from your models into a consistent and customizable JSON format before sending it as a response.
+        // This helps ensure that your API returns data in a way that’s easy to consume by frontend applications or other services.
+
+        //StudentResource::collection()
+        // Transforming Collections: StudentResource::collection(...) wraps the collection of Student models (in this case, a paginated collection) in the StudentResource class.
+        // This means each Student model in the collection will be transformed using the toArray method defined in the StudentResource class.
+
         return inertia('Students/Index', [
             'students' => $students,
         ]);
+        //Laravel’s pagination method automatically includes metadata in the response,
+        //such as the total number of pages, the current page, and links to the next/previous pages.
     }
 
     /**
